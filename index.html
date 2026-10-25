@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Fire Game</title>
+<style>
+body{margin:0;background:#111;color:#fff;text-align:center;font-family:sans-serif}
+canvas{background:#222;display:block;margin:10px auto;border:2px solid #ff0}
+button{padding:15px 30px;background:orange;border:none;font-size:20px;border-radius:10px}
+</style>
+</head>
+<body>
+<h2>🔥 FREE FIRE MINI 🔥</h2>
+<canvas id="g" width="360" height="500"></canvas><br>
+<button onclick="shoot()">FIRE</button>
+<script>
+let c=g.getContext("2d"),x=180,y=450,b=[],e=[];
+setInterval(()=>e.push({x:Math.random()*330,y:0}),900);
+function shoot(){b.push({x:x,y:y})}
+setInterval(()=>{
+c.clearRect(0,0,360,500);
+c.fillStyle="lime";c.fillRect(x-15,y-15,30,30);
+c.fillStyle="yellow";b.forEach((p,i)=>{p.y-=6;c.fillRect(p.x,p.y,4,10);if(p.y<0)b.splice(i,1)});
+c.fillStyle="red";e.forEach((q,i)=>{q.y+=2;c.fillRect(q.x,q.y,30,30);b.forEach((p,j)=>{if(p.x>q.x&&p.x<q.x+30&&p.y>q.y&&p.y<q.y+30){e.splice(i,1);b.splice(j,1)}})});
+},20);
+g.addEventListener("touchmove",ev=>{x=ev.touches[0].clientX-g.getBoundingClientRect().left});
+</script>
+</body>
+</html>
